@@ -1,7 +1,7 @@
 #include "main.h"
 #include <stdlib.h>
 
-void permute(int total_symbols, int permutation_index, int output_array[]) {     //printing_size is actual number of elements in the array, size is just there to count down each recursion
+void permute(int total_symbols, int permutation_index, int output_array[]) {
     int *array = malloc(sizeof(int) * total_symbols); //allocate total_symbols * int_size bytes to our array
     int *factoradic_notation = malloc(sizeof(int) * total_symbols);
 
