@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    int waypoints_parsed_count = parse_waypoints(argv[1]); //read waypoints and show to the user what they look like in memory (makes debugging for the user a lot lot easier)
+    int waypoints_parsed_count = parse_waypoints(argv[1]); //read waypoints and show to the user what they look like in memory (makes debugging the input file for the user a lot lot easier)
     int size_array = waypoints_parsed_count - 1;
     printf("Amount of waypoints parsed: %i\n\n", waypoints_parsed_count);
     for(int i = 0; i < waypoints_parsed_count; i++) {
@@ -35,10 +35,10 @@ int main(int argc, char *argv[]) {
     temporary_route = malloc(sizeof(int) * (size_array));
     optimal_route = malloc(sizeof(int) * (waypoints_parsed_count));
 
-    int total_permutations = 1;
-    for(int i = 1; i <= waypoints_parsed_count; i++) {
+    int total_permutations = 1;             //simple factorial so that we know our maximum of permutations to perform (n-1)! (size_array is already (n-1))
+    for(int i = 1; i <= size_array; i++) {
         total_permutations *= i;
-    }   //simple factorial so that we know our maximum of permutations to perform
+    }
 
     for(int i = rank; i < total_permutations; i += size) {
         permute(size_array, i);
@@ -48,11 +48,11 @@ int main(int argc, char *argv[]) {
     if(rank == 0) {
         int *recvbuf = malloc(sizeof(int) * waypoints_parsed_count);
 
-        for(int i = 1; i < size; i++) {
+        for(int i = 1; i < size; i++) { //we receive all deemed optimal_routes per node on node 0 so that we can compare all and pick the true optimal one
             MPI_Recv(recvbuf, sizeof(recvbuf), MPI_INT, i, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-            int test_distance = find_total_distance_route(recvbuf, size_array);
-            if(test_distance < optimal_distance) {
-                optimal_route[0] = 1;
+            int test_distance = find_total_distance_route(recvbuf, size_array); //maybe this route is shorter than the one we currently have
+            if(test_distance < optimal_distance) {  //we have found a route which is more optimal than the one currently held by node 0 so replace it
+                optimal_route[0] = 1;   //we start from our first waypoint
                 for(int i = 1; i <= size_array; i++) {
                     optimal_route[i] = recvbuf[i];
                     optimal_distance = test_distance;
@@ -64,7 +64,7 @@ int main(int argc, char *argv[]) {
         printf("with a distance of %lf units.\n", optimal_distance);
         free(recvbuf);
     } else {
-        MPI_Send(optimal_route, sizeof(optimal_route), MPI_INT, 0, 0, MPI_COMM_WORLD);
+        MPI_Send(optimal_route, sizeof(optimal_route), MPI_INT, 0, 0, MPI_COMM_WORLD);  //all other nodes 1 up until n send their deemed optimal route to node 0
     }
 
     free(waypoint_x);   //these dynamic arrays have been initialised in the parse_waypoints() call, but these must also be freed again
