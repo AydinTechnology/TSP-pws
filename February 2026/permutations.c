@@ -2,7 +2,7 @@
 #include "geometry_functions.h"
 #include "variables.h"
 
-void permute(int size_array, int permutation_index) {  //permutation_index can be thought of as an "offset" since absolute zero ie. the first of x! permutations
+void permute(int size_array, long long permutation_index) {  //permutation_index can be thought of as an "offset" since absolute zero ie. the first of x! permutations
     int *array = malloc((sizeof(int) * size_array)); //allocate size_array * int_size bytes to our array
     int *factoradic_notation = malloc(sizeof(int) * size_array);
 
@@ -12,7 +12,7 @@ void permute(int size_array, int permutation_index) {  //permutation_index can b
     }
 
     //from permutation index to factoradic notation through successive division
-    int dividend = permutation_index;
+    long long dividend = permutation_index;
     for(int i = 1; i <= size_array; i++) {
         factoradic_notation[size_array-i] = dividend % i;
         dividend = dividend / i;

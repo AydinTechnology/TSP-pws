@@ -1,1 +1,1 @@
-void permute(int size_array, int permutation_index);
+void permute(int size_array, long long permutation_index);

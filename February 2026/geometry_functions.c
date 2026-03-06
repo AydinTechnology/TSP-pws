@@ -6,6 +6,7 @@ void array_printing(int array[], int printing_size) {
     for(int i = 0; i < printing_size; i++) {
         printf("%i ", array[i]);
     }
+    printf("1 ");
     return;
 }
 

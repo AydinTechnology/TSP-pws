@@ -35,12 +35,12 @@ int main(int argc, char *argv[]) {
     temporary_route = malloc(sizeof(int) * (size_array));
     optimal_route = malloc(sizeof(int) * (waypoints_parsed_count));
 
-    int total_permutations = 1;             //simple factorial so that we know our maximum of permutations to perform (n-1)! (size_array is already (n-1))
+    long long total_permutations = 1;             //simple factorial so that we know our maximum of permutations to perform (n-1)!/2 (size_array is equal to (n-1))
     for(int i = 1; i <= size_array; i++) {
         total_permutations *= i;
     }
 
-    for(int i = rank; i < total_permutations; i += size) {
+    for(long long i = rank; i < total_permutations; i += size) {
         permute(size_array, i);
     }
 
