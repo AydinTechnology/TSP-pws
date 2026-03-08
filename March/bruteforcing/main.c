@@ -63,12 +63,14 @@ int main(int argc, char *argv[]) {
 
     if(rank == 0) {
         for(int i = 0; i < size; i++) {
-            double test_distance = find_total_distance_route(gathered+waypoints_parsed_count*i+1, size_array); //maybe this route is shorter than the one we currently have
+            double test_distance = find_total_distance_route(gathered+(waypoints_parsed_count*i)+1, size_array); //maybe this route is shorter than the one we currently have
 
             if(test_distance < optimal_distance) {  //we have found a route which is more optimal than the one currently held by node 0 so replace it
                     optimal_distance = test_distance;
                     optimal_route[0] = 1;   //we start from our first waypoint
-                    memcpy(&optimal_route+sizeof(int), &gathered+waypoints_parsed_count*i, sizeof(int)*size_array);
+                    for(int j = 1; j <= size_array; j++) {
+                        optimal_route[j] = gathered[j+(waypoints_parsed_count*i)];
+                    }
 
                     printf("The optimal route is ");
                     array_printing(optimal_route, waypoints_parsed_count);
