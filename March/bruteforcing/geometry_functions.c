@@ -35,6 +35,7 @@ double find_total_distance_route(int index_array[], int size_array) {
 }
 
 void check_optimal_route(int size_array) {
+    if(temporary_route[1] > temporary_route[size_array-2]) return;    //the optimization which brings us to (n-1)!/2 difficulty
     double distance = find_total_distance_route(temporary_route, size_array);
     if((distance < optimal_distance) | first_run) {
             first_run = 0;
