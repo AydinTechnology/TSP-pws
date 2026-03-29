@@ -1,0 +1,1 @@
+This is our implementation of the branch and bound algorithm for the tsp. It requires, just like the bruteforcer, Open MPI to be installed and configured for parallel processing to speed up the process.
