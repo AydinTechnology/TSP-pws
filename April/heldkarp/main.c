@@ -25,5 +25,7 @@ int main(int argc, char *argv[]) {
 
     heldkarp(waypoints_parsed_count);
 
+    free(waypoint_x);
+    free(waypoint_y);
     return 0;
 }
