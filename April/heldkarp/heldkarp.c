@@ -79,5 +79,7 @@ void heldkarp(int n) {
     //clean up the mess we made in the heap
     for(int i = 0; i < entries_count; i++) free(cost_table[i]);
     free(cost_table);
+    for(int i = 0; i < entries_count; i++) free(previously_visited_table[i]);
+    free(previously_visited_table);
     return;
 }
