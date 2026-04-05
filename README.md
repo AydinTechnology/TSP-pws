@@ -3,3 +3,4 @@ In this repository you can find the implementations of the algorithms described 
 Bruteforcing -> March  
 Branch and bound -> March  
 Held-Karp -> April  
+Nearest neighbour + 2-opt -> April
