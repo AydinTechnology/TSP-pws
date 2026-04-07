@@ -16,7 +16,7 @@ void heldkarp(int n) {
     }
 
     //we'll also make a previously_visited_table so that we can easily extract what route we generated since our cost_table is only useful for adding up route cost
-    unsigned char **previously_visited_table = malloc(entries_count * sizeof(unsigned char*)); //we won't have to bother with large datatypes since we won't be exceeding 2^16 ie. n>255 anytime soon (ram shortages)
+    unsigned char **previously_visited_table = malloc(entries_count * sizeof(unsigned char*)); //we won't have to bother with large datatypes since we won't be exceeding 2^8 ie. n>255 anytime soon (ram shortages)
     for(int i = 0; i < entries_count; i++) {
         previously_visited_table[i] = malloc(n * sizeof(unsigned char));
     }
